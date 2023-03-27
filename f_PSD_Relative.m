@@ -21,7 +21,7 @@ id2=ad2(1);
 
 l1=find(f>=0.5);
 lim1=l1(1);
-l2=find(f>=500);
+l2=find(f>=490);
 lim2=l2(1);
 Ptot= sum(pxx_av(lim1:lim2));
 powr = sum(pxx_av(id1:id2))/Ptot; 
@@ -44,7 +44,7 @@ g4=120;
 HFO11=121;
 HFO12=250;
 HFO21=251;
-HFO22=500;
+HFO22=490;
 
 ad1=find(f>=d1);
 ad2=find(f>=d2);
