@@ -68,7 +68,7 @@ clc; clear; close all;
 %% Define File and Parameters
 
 % File Information
-fileName = '17308005.abf';
+fileName = 'Data/Raw/17308005.abf';
 
 % Channel and Signal Parameters
 selectedChannel = 1;
