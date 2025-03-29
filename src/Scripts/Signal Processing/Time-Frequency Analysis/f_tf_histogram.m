@@ -1,4 +1,28 @@
 function f_tf_histogram(selectedTrialsMatrix, minFreqHz, maxFreqHz, sampleRateReduction, actualSampleRate, stDevCycles, normalizeFlag, headerInfo, selectedChannel)
+    % f_tf_histogram
+    % Computes time-frequency decompositions for a set of trials using Morse wavelets,
+    % aggregates frequency-band-specific magnitudes, and plots histograms per EEG band.
+    %
+    % Inputs:
+    %   selectedTrialsMatrix   : [time x trials] matrix of extracted trials
+    %   minFreqHz              : minimum frequency for decomposition (Hz)
+    %   maxFreqHz              : maximum frequency for decomposition (Hz)
+    %   sampleRateReduction    : downsampling factor (to reduce time resolution)
+    %   actualSampleRate       : original sampling rate (Hz)
+    %   stDevCycles            : wavelet width in standard deviations (controls time-frequency tradeoff)
+    %   normalizeFlag          : 1 to apply log-transform and z-score across trials, 0 to use raw magnitudes
+    %   headerInfo             : structure containing channel names (for figure titles)
+    %   selectedChannel        : index of the channel being analyzed
+    %
+    % Notes:
+    %   - Applies the Morse analytic wavelet transform across trials.
+    %   - Magnitude values are averaged within canonical EEG bands:
+    %     Delta (0.5–4 Hz), Theta (4–8 Hz), Alpha (8–13 Hz), Beta (13–30 Hz),
+    %     Gamma (30–120 Hz), and High-Frequency Oscillations (120+ Hz).
+    %   - Histogram of average band-specific magnitude is plotted per band.
+    %
+    % Example:
+    %   f_tf_histogram(trialsMatrix, 2, 120, 2, 1000, 4, 1, headerInfo, 1);
 
     % Adjust sampling rate and select single channel
     actualSampleRate = actualSampleRate / sampleRateReduction;

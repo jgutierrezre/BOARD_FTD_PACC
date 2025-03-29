@@ -1,7 +1,24 @@
 function [trialsMatrix, trialTimeVector] = f_Cols_Latent(dataMatrix, selectedChannel, threshold, trialWindowLength, exclusionWindowLength, numChannels, actualSampleRate, numTrials)
-    % Extracts random non-stimulus trials for latent activity analysis
-    % Skips stimulus-locked epochs based on threshold crossing (positive or negative)
-    % Shaded selected trials in signal plot for verification
+    % f_Cols_Latent
+    % Extracts clean, non-stimulus (latent) trials from continuous electrophysiological data,
+    % avoiding regions near stimulus events, and plots excluded zones and selected trials.
+    %
+    % Inputs:
+    %   dataMatrix           : [time x channels] continuous data matrix
+    %   selectedChannel      : index of the data channel to extract latent activity from
+    %   threshold            : threshold to detect stimulus events (based on numChannels)
+    %   trialWindowLength    : duration of each trial in seconds
+    %   exclusionWindowLength: time to exclude before and after each stimulus (in seconds)
+    %   numChannels          : index of the stimulus-detection channel
+    %   actualSampleRate     : sampling rate of the data (Hz)
+    %   numTrials            : number of random, non-overlapping latent trials to extract
+    %
+    % Outputs:
+    %   trialsMatrix         : [samples x trials] matrix of extracted latent trials
+    %   trialTimeVector      : [samples x 1] time vector (0 to trialWindowLength)
+    %
+    % Example:
+    %   [trials, tVec] = f_Cols_Latent(data, 1, 0.6, 1.0, 0.2, 16, 1000, 50);
 
     %% --- Parameters & Setup ---
     threshold = abs(threshold);

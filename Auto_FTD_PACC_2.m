@@ -136,4 +136,33 @@ sampleRateReduction = round(actualSampleRate / targetSampleRate);
 f_tf_average(trialsMatrix, minFreqHz, maxFreqHz, sampleRateReduction, actualSampleRate, trialTimeVector, waveletCycles, normalizeFlag, logTransformFlag, headerInfo, selectedChannel);
 
 %% Time-Frequency Histogram Analysis
-% f_tf_histogram(trialsMatrix, minFreqHz, maxFreqHz, sampleRateReduction, actualSampleRate, waveletCycles, normalizeFlag, headerInfo, selectedChannel);
+f_tf_histogram(trialsMatrix, minFreqHz, maxFreqHz, sampleRateReduction, actualSampleRate, waveletCycles, normalizeFlag, headerInfo, selectedChannel);
+
+%% Bootstrap Analysis
+[bootStats, ci, pVal] = f_BootstrapTrialStats(trialsMatrix, 1000);
+
+% Display results
+disp('Bootstrapped Statistics:');
+disp(bootStats);
+disp('95% Confidence Interval:');
+disp(ci);
+disp('P-value:');
+disp(pVal);
+
+% Plot the bootstrapped statistics
+figure;
+histogram(bootStats, 30);
+xlabel('Bootstrapped Statistic');
+ylabel('Frequency');
+title('Bootstrapped Statistics Distribution');
+% Add vertical lines for the confidence interval
+hold on;
+xline(ci(1), 'r', 'LineWidth', 2, 'Label', 'Lower CI');
+xline(ci(2), 'g', 'LineWidth', 2, 'Label', 'Upper CI');
+hold off;
+grid on;
+legend('Bootstrapped Stats', 'Lower CI', 'Upper CI');
+% Add a title to the plot
+title('Bootstrapped Statistics Distribution with Confidence Intervals');
+% Add a grid for better readability
+grid on;
